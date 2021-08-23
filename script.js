@@ -173,14 +173,48 @@ function getPreviousPalindrome(date){
     return [count,prevDate];
 }
 
-let date = {
-  day: 31,
-  month: 12,
-  year: 2020,
-};
+// let date = {
+//   day: 31,
+//   month: 12,
+//   year: 2020,
+// };
 
-console.log(getNextPalindrome(date));
-console.log(getPreviousPalindrome(date));
+const bdayInput = document.getElementById("date-input");
+const showBtn = document.getElementById("show-btn");
+const output = document.getElementById("output");
 
-02112020
-22022020
+showBtn.addEventListener("click",()=>{
+  const bDayString = bdayInput.value;
+  
+  let dateArray = bDayString.split("-");   // yyyy-mm-dd
+  let day = dateArray[2];
+  let month = dateArray[1];
+  let year = dateArray[0];
+  
+  let date ={
+    day: Number(day),
+    month : Number(month),
+    year: Number(year)
+  }
+  // console.log(date);
+  let dateStr = convertDateToString(date);
+  console.log(dateStr);
+
+  let palindrome = checkPalindromeForAllFormats(dateStr);
+  
+  if(!palindrome){
+    const [count1,nextDate]=getNextPalindrome(date);
+    const [count2,prevDate] = getPreviousPalindrome(date);
+
+    if(count1>count2){
+      output.innerText =`The nearest palindrome date is ${prevDate.day}-${prevDate.month}-${prevDate.year}, you missed by ${count2} days`;
+    }
+    else{
+      output.innerText = `The nearest palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}, you missed by ${count1} days`;
+    }
+  }
+  else{
+    output.innerText = `Congo! Your birthday is palindrome!`
+  }
+  
+})
