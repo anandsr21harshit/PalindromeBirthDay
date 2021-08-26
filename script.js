@@ -49,6 +49,7 @@ function checkPalindromeForAllFormats(date) {
   for (let i = 0; i < allDateFormat.length; i++) {
     if (isPalindrome(allDateFormat[i])) {
       flag = true;
+      break;
     }
   }
   return flag;
